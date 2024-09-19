@@ -16,7 +16,7 @@ body {
     text-align: center;
     display: inline-block;
     vertical-align: top;
-    width: calc(100% - 220px);
+    width: calc(100% - 170px);
 }
 
 h1 {
@@ -86,11 +86,23 @@ button:hover {
     position: absolute;
     top: 20px;
     right: 20px;
-    width: 200px;
+    width: 150px;
     height: auto;
 }
 
 .image-container img {
     width: 100%;
     height: auto;
+}
+
+.big-x {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 500px; 
+    color: rgba(222, 72, 50, 0.8); 
+    display: none; 
+    z-index: 1000; 
+    pointer-events: none;
 }
