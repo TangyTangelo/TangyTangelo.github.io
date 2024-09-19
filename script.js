@@ -158,7 +158,7 @@ const questions = [
 ];
 
 let currentQuestionIndex = 0;
-let incorrectCount = 1;
+let incorrectCount = 0;
 
 window.onload = function() {
     loadQuestion();
