@@ -1,4 +1,3 @@
-// Questions and answers with counts
 const questions = [
     {
         question: "Name a place that's filled with people who don't want to be there?",
@@ -159,50 +158,72 @@ const questions = [
 ];
 
 let currentQuestionIndex = 0;
+let incorrectCount = 1;
 
-// Initialize the first question
 window.onload = function() {
     loadQuestion();
 }
 
-// Function to load the current question
 function loadQuestion() {
     const questionElement = document.getElementById("question");
     const cards = document.querySelectorAll(".card");
 
-    // Update question text
     questionElement.textContent = questions[currentQuestionIndex].question;
 
-    // Update card texts
     cards.forEach((card, index) => {
         if (questions[currentQuestionIndex].answers[index]) {
-            card.textContent = `Answer ${index + 1}`; // Placeholder text
+            card.textContent = `Answer ${index + 1}`;
             card.dataset.answer = `${questions[currentQuestionIndex].answers[index].answer} (${questions[currentQuestionIndex].answers[index].count})`; // Store the actual answer with count
-            card.classList.remove("flipped"); // Reset flipped cards
+            card.classList.remove("flipped"); 
         } else {
-            card.textContent = ''; // Clear text if no answer is available
+            card.textContent = ''; 
         }
     });
 }
 
-// Function to flip the card and reveal the answer
 function flipCard(card) {
     if (card.classList.contains("flipped")) {
-        card.textContent = `Answer ${Array.from(card.parentNode.children).indexOf(card) + 1}`; // Placeholder text
+        card.textContent = `Answer ${Array.from(card.parentNode.children).indexOf(card) + 1}`;
     } else {
-        card.textContent = card.dataset.answer; // Actual answer with count
+        card.textContent = card.dataset.answer; 
     }
     card.classList.toggle("flipped");
 }
 
-// Function to go to the previous question
 function prevQuestion() {
     currentQuestionIndex = (currentQuestionIndex - 1 + questions.length) % questions.length;
     loadQuestion();
 }
 
-// Function to go to the next question
 function nextQuestion() {
     currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
     loadQuestion();
+}
+
+function incorrectAnswer() {
+    incorrectCount++;
+    showBigX();
+    updateIncorrectCountDisplay();
+}
+
+function showBigX() {
+    if (incorrectCount > 3) {
+        incorrectCount = 1;
+    };
+    const bigXElement = document.getElementById("incorrectCount");
+    bigXElement.style.display = "block"; // Show the "X"
+    setTimeout(() => {
+        bigXElement.style.display = "none"; // Hide after a brief delay
+    }, 2000); // Adjust duration as needed
+    
+}
+
+function resetIncorrectCount() {
+    incorrectCount = 1;
+    updateIncorrectCountDisplay();
+}
+
+function updateIncorrectCountDisplay() {
+    const incorrectCountElement = document.getElementById("incorrectCount");
+    incorrectCountElement.textContent = `X`.repeat(incorrectCount); // If you want multiple Xs to be shown
 }
